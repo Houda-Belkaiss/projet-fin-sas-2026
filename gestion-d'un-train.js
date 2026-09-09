@@ -182,58 +182,59 @@ const trips = [
         availableSeats: 50
     }
 ];
- let choix; do {
-     console.log(
-     ` =======================
-         RAILWAY MANAGER
-     =======================
+//  let choix; do {
+//      console.log(
+//      ` =======================
+//          RAILWAY MANAGER
+//         =======================
      
-      1-Afficher les trajets
-      2-Acheter un ticket
-      3-Afficher les tickets
-      4-Annuler un ticket
-      5-Rechercher un ticket
-      6-Filtrer les trajets
-      7-Trier les trajets
-      0-Quitter`);
-     choix = Number(prompt('Votre choix:'));
-     switch (choix) {
-         case 1:
-             afficherTrajet();
-             break;
-         case 2:
-             AcheterUnTicket();
-             break;
-         case 3:
-           AfficherLesTickets();
-             break;
-         case 4:
-           AnnulerUnTicket();
-           break;
-       case 5:
-            RechercherUnTicketParNom();
-             break;
-         case 6:
-            FiltrerLesTrajetsParVille();
-            break;
-         case 7:
-             TrierLesTrajets();
-             break;
-         case 8:
-            console.log('Au revoir');
-             break;
-         default:
-             console.log('choix invalable.');
-             break;
-     }  
+//       1-Afficher les trajets
+//       2-Acheter un ticket
+//       3-Afficher les tickets
+//       4-Annuler un ticket
+//       5-Rechercher un ticket
+//       6-Filtrer les trajets
+//       7-Trier les trajets
+//       0-Quitter`);
+//      choix = Number(prompt('Votre choix:'));
+//      switch (choix) {
+//          case 1:
+//              afficherTrajet();
+//              break;
+//          case 2:
+//              AcheterUnTicket();
+//              break;
+//          case 3:
+//            AfficherLesTickets();
+//              break;
+//          case 4:
+//            AnnulerUnTicket();
+//            break;
+//        case 5:
+//             RechercherUnTicketParNom();
+//              break;
+//          case 6:
+//             FiltrerLesTrajetsParVille();
+//             break;
+//          case 7:
+//              TrierLesTrajets();
+//              break;
+//          case 0:
+//             console.log('Au revoir');
+//              break;
+//          default:
+//              console.log('choix invalable.');
+//              break;
+//      }  
     
- } while (choix != 0);
+//  } while (choix != 0);
 
 
 function afficherTrajet() {
+    console.log('=== TRAJETS DISPONIBLES ===');
     for (let i = 0; i < trips.length; i++) {
-        console.log(`=== TRAJETS DISPONIBLES ===
-            #${i+1} ${trips[i].departure} -> ${trips[i].destination}
+        console.log(`
+            #${trips[i].id} ${trips[i].departure} -> ${trips[i].destination}
             Departure: ${trips[i].departureTime}
             Arrivée: ${trips[i].arrivalTime}
             Prix: ${trips[i].price} DH
@@ -244,33 +245,38 @@ afficherTrajet();
 
 function RechercherByID(){
     let idrech = Number(prompt('Identifiant du trajet :'));
-    
+    let trajet = [];
+    let trouve;
     for (let i = 0; i < trips.length; i++) {
-        if (idrech == trips[i].id) {
-
-            return tajet[i];
-        }  
+        if (idrech === trips[i].id) {
+            trajet = trips[i]; 
+            trouve = true;
+            console.log(`  ${trips[i].departure} -> ${trips[i].destination}
+            Departure: ${trips[i].departureTime}
+            Arrivée: ${trips[i].arrivalTime}
+            Prix: ${trips[i].price} DH
+            Places disponibles: ${trips[i].availableSeats}`); 
+        } 
     }
-    return 'Trajet introuvable.';
+    if(!trouve){
+        console.log('Trajet introuvable.');
+    }
 }
-console.log(RechercherByID());
+ RechercherByID();
+  
+// function AfficherLesTickets(){
 
-function AcheterUnTicket(){
+// }
+// function AnnulerUnTicket(){
 
-}
-function AfficherLesTickets(){
-
-}
-function AnnulerUnTicket(){
-
-}
-function RechercherUnTicketParNom() {
+// }
+// function RechercherUnTicketParNom() {
     
-}
-function FiltrerLesTrajetsParVille() {
+// }
+// function FiltrerLesTrajetsParVille() {
     
-}
-function TrierLesTrajets() {
+// }
+// function TrierLesTrajets() {
     
-}
+// }
 
