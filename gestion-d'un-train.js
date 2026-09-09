@@ -245,37 +245,26 @@ afficherTrajet();
 
 function RechercherByID(){
     let idrech = Number(prompt('Identifiant du trajet :'));
-    let trajet = [];
-    let trouve;
+    let trajet ;
     for (let i = 0; i < trips.length; i++) {
         if (idrech === trips[i].id) {
             trajet = trips[i]; 
-            trouve = true;
-            console.log(`  ${trips[i].departure} -> ${trips[i].destination}
-            Departure: ${trips[i].departureTime}
-            Arrivée: ${trips[i].arrivalTime}
-            Prix: ${trips[i].price} DH
-            Places disponibles: ${trips[i].availableSeats}`); 
+            return trajet; 
         } 
     }
-    if(!trouve){
-        console.log('Trajet introuvable.');
+      return  false;
     }
+
+function AcheterUnTicket(){
+    
 }
- RechercherByID();
-  
-// function AfficherLesTickets(){
 
-// }
-// function AnnulerUnTicket(){
-
-// }
-// function RechercherUnTicketParNom() {
+ function RechercherUnTicketParNom(Nom) {
     
-// }
-// function FiltrerLesTrajetsParVille() {
-    
-// }
+}
+ function FiltrerLesTrajetsParVille(ville) {
+   
+ }
 // function TrierLesTrajets() {
     
 // }
