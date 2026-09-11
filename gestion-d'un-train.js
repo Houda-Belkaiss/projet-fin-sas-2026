@@ -196,7 +196,6 @@ do {
     5-Rechercher un ticket
     6-Filtrer les trajets
     7-Trier les trajets
-    8-statistique
     0-Quitter`,
   );
 
@@ -257,20 +256,15 @@ function rechercherByID(id) {
 }
 function acheterUnTicket(ticket) {
   let nom = prompt("Nom du passager :");
-  //  rechercher le trajet correspondant
-  //  vérifier que le trajet existe ;
   let trajet = rechercherByID(Number(prompt("Identifiant du trajet :")));
   if (!trajet) {
     console.log("traget introuvable . ");
     return;
   }
-  // vérifier qu'il reste au moins une place disponible ;
   if (trajet.availableSeats <= 0) {
     console.log("train complet .");
     return;
   }
-
-  // créer un ticket ;
   ticket = {
     id: tickets.length + 1,
     passengerName: nom,
@@ -278,11 +272,7 @@ function acheterUnTicket(ticket) {
     seatNumber: trajet.availableSeats,
     price: trajet.price,
   };
-
-  // diminuer le nombre de places disponibles ;
   trajet.availableSeats -= 1;
-
-  // ajouter le ticket au tableau des tickets.
 
   tickets[tickets.length] = ticket;
   console.log("Ticket achete avec succes");
@@ -315,23 +305,22 @@ function affichierTickets() {
   }
 }
 
-//rechercher le ticket ;
-// vérifier qu'il existe ;
+
 function rechercherTicketById(id) {
   for (let i = 0; i < tickets.length; i++) {
     if (tickets[i].id === id) {
       return tickets[i];
     }
   }
-  return undefined;
+  return false;
 }
-//retrouver le trajet associé ;
+
 
 function verifierTrajet(id) {
   let ticket = rechercherTicketById(id);
   return ticket;
 }
-//supprimer le ticket ;
+
 
 function supprimerTicket() {
   let id = Number(prompt("Identifiant du ticket:"));
@@ -342,23 +331,23 @@ function supprimerTicket() {
     return;
   }
 
-  // retrouver le trajet associé ;
   let trajet = rechercherByID(ticket.tripId);
 
-  //supprimer le ticket ;
+  
   let newTickets = [];
   for (let i = 0; i < tickets.length; i++) {
     if (tickets[i].id !== ticket.id) {
-      newTickets.push(tickets[i]);
+      newTickets[newTickets.length] = tickets[i];
+     
     }
   }
   tickets = newTickets;
-  //augmenter le nombre de places disponibles du trajet de 1
+  
   trajet.availableSeats = trajet.availableSeats + 1;
   console.log(`Identifiant du ticket : ${ticket.id} `);
   console.log("Ticket annule avec succes.");
 }
-// Rechercher un ticket
+
 function rechercherUnTicketParNom() {
   let name = prompt("Nom du passager : ");
   name = name.trim();
@@ -367,7 +356,8 @@ function rechercherUnTicketParNom() {
     if (
       tickets[i].passengerName.toLocaleLowerCase() == name.toLocaleLowerCase()
     ) {
-      newTickets.push(tickets[i]);
+      newTickets[newTickets.length] = tickets[i];
+      
     }
   }
   if (newTickets.length === 0) {
@@ -380,11 +370,14 @@ function rechercherUnTicketParNom() {
 }
 function filtrerTrajets() {
   let ville = prompt("Ville de départ :");
-  let results = trips.filter(function (trip) {
-    return (
-      trip.departure.toLocaleLowerCase() == ville.trim().toLocaleLowerCase()
-    );
-  });
+  let results = [];
+  for (let i = 0; i < trips.length; i++) {
+    if (trips[i].departure.toLocaleLowerCase() == ville.toLocaleLowerCase()) {
+      results[results.length]= trips[i];
+    }
+    
+  }
+ 
   console.log(`Résultat :`);
   if (results.length == 0) {
     console.log("Aucun trajet");
@@ -399,24 +392,21 @@ function filtrerTrajets() {
 
 function trierTrajets() {
   console.log(" TRAJETS TRIÉS");
-
-  // slice() pour ne pas modifier le tableau original
-  const sortedTrips = trips.slice();
-  sortedTrips.sort(function (a, b) {
-    return a.price - b.price;
-  });
-  for (let i = 0; i < sortedTrips.length; i++) {
-    console.log(
-      `${sortedTrips[i].departure} → ${sortedTrips[i].destination} : ${sortedTrips[i].price} DH`,
-    );
+  for (let i = 0; i < trips.length; i++) {
+    for (let j = 0; j < trips.length-1-i; j++) {
+      let temp = trips[j];
+      if (trips[j].price > trips[j+1].price) {
+          temp[j]=trips[j+1];
+          trips[j+1]= temp;
+      }
+      
+    } 
   }
-}
-function statistique() {
-  console.log("Nombre total de tickets : ", tickets.length);
-
-  let somme = 0;
-  for (let i = 0; i < tickets.length; i++) {
-    somme += tickets[i].price;
+  for (let i = 0; i < trips.length; i++) {
+    console.log(`${trips[i].departure} -> ${trips[i].destination} : ${trips[i].price} DH`);
+    
+    
   }
-  console.log("Chiffre affaires total : ", somme, " DH");
-}
+  }
+  
+
