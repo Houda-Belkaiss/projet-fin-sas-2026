@@ -392,11 +392,11 @@ function filtrerTrajets() {
 
 function trierTrajets() {
   console.log(" TRAJETS TRIÉS");
-  for (let i = 0; i < trips.length; i++) {
+  for (let i = 0; i < trips.length -1; i++) {
     for (let j = 0; j < trips.length-1-i; j++) {
       let temp = trips[j];
       if (trips[j].price > trips[j+1].price) {
-          temp[j]=trips[j+1];
+          trips[j]=trips[j+1];
           trips[j+1]= temp;
       }
       
