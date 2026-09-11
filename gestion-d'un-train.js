@@ -316,7 +316,7 @@ function rechercherTicketById(id) {
 }
 
 
-function verifierTrajet(id) {
+function verifierTicket(id) {
   let ticket = rechercherTicketById(id);
   return ticket;
 }
@@ -324,7 +324,7 @@ function verifierTrajet(id) {
 
 function supprimerTicket() {
   let id = Number(prompt("Identifiant du ticket:"));
-  let ticket = verifierTrajet(id);
+  let ticket = verifierTicket(id);
 
   if (!ticket) {
     console.log("trajet introuvable");
