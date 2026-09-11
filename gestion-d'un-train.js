@@ -224,9 +224,6 @@ do {
     case 7:
       trierTrajets();
       break;
-    case 8:
-      statistique();
-      break;
     case 0:
       console.log("Au revoir");
       break;
