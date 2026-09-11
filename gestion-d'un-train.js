@@ -1,5 +1,6 @@
 let prompt = require("prompt-sync")();
 let tickets = [];
+let countId = 1;
 const trips = [
   {
     id: 1,
@@ -234,6 +235,7 @@ do {
       break;
   }
 } while (choix != 0);
+
 function afficherTrajet() {
   console.log("=== TRAJETS DISPONIBLES ===");
   for (let i = 0; i < trips.length; i++) {
@@ -266,12 +268,13 @@ function acheterUnTicket(ticket) {
     return;
   }
   ticket = {
-    id: tickets.length + 1,
+    id: countId,
     passengerName: nom,
     tripId: trajet.id,
     seatNumber: trajet.availableSeats,
     price: trajet.price,
   };
+  countId ++;
   trajet.availableSeats -= 1;
 
   tickets[tickets.length] = ticket;
